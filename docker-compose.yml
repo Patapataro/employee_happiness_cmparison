@@ -1,0 +1,35 @@
+version: '1.0.0'
+
+services:
+  vue:
+    image: node:18.17.1
+    working_dir: /app
+    volumes:
+      - ./vue_employee-happiness-chart:/app
+    ports:
+      - "8080:8080"
+    command: bash -c "npm install && npm run dev -- --port 8080 --host 0.0.0.0"
+    
+  lumen:
+    image: php:8.2-fpm
+    working_dir: /app
+    volumes:
+      - ./lumen-app:/app
+    ports:
+      - "8000:80"
+    command: bash -c "apt-get update && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && composer install && php -S 0.0.0.0:80 -t public"
+
+  db:
+    image: mysql:8.1
+    environment:
+      MYSQL_DATABASE: lumen
+      MYSQL_USER: user
+      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: root_secret
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+    - "3306:3306"
+
+volumes:
+  db_data:
