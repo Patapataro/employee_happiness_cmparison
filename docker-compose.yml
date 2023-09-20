@@ -14,13 +14,12 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.lumen
-    # image: php:8.2-fpm
     working_dir: /app
     volumes:
       - ./lumen-app:/app
     ports:
       - "8000:80"
-    command: bash -c "apt-get update && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && composer install && php artisan migrate --seed && php -S 0.0.0.0:80 -t public"
+    command: bash -c "apt-get update && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && composer install && php -S 0.0.0.0:80 -t public"
 
   db:
     image: mysql:8.1
