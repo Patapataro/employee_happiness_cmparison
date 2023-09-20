@@ -1,47 +1,70 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import { ref } from 'vue'
+import { getAll } from './services/HappinessChartService.js'
+import HappinessGraph from './components/happiness-graph/HappinessGraph.vue'
+import DataRow from './components/DataRow.vue'
+
+const departments = ref(null)
+
+getAll().then(response => {
+  departments.value = response
+})
+
 </script>
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+    <!-- <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" /> -->
 
-    <div class="wrapper">
+    <!-- <div class="wrapper">
       <HelloWorld msg="You did it!" />
+    </div> -->
+    <h1 id="title">Employee Happiness Comparison</h1>
+    <div id="checkbox">
+      <input type="checkbox">
+      <p>Compare to Workplace</p>
     </div>
+    
+
   </header>
 
   <main>
-    <TheWelcome />
+    <!-- <TheWelcome /> -->
+    <HappinessGraph :data="departments" />
+
+    <hr>
+
+    <DataRow v-for="department in departments" :data="department" :key="department.id"/>
+
+
   </main>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
-}
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
   header {
     display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
+    justify-content: column;
   }
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
 
-  header .wrapper {
+  #checkbox {
     display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
+    margin-right: 0;
   }
-}
+
+  #title {
+    display: block;
+    margin: auto;
+  }
+
+  .dataRow{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .departmentTitle{
+    display: inline;
+  }
+
 </style>
