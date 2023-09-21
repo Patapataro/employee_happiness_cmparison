@@ -66,6 +66,7 @@
     #container {
         display:flex;
         text-align: center;
+        width: 100%;
     }
 
     #chartContainer{
@@ -74,6 +75,7 @@
         border-radius: 1em;
         height: 25em;
         border-radius: 1em;
+        width: 100%;
     }
 
     #graphPercent {

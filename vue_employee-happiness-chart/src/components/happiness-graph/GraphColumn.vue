@@ -35,6 +35,7 @@
         display: flex;
         flex-flow: column;
         width: 8em;
+        width: 100%;
     }
 
     .mood {

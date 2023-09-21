@@ -3,6 +3,9 @@ import { ref } from 'vue'
 import { getAll } from './services/HappinessChartService.js'
 import HappinessGraph from './components/happiness-graph/HappinessGraph.vue'
 import DataRow from './components/DataRow.vue'
+import { useGraphStore } from './stores/GraphStore.js'
+
+useGraphStore();
 
 const departments = ref(null)
 
