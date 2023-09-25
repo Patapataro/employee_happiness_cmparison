@@ -11,15 +11,19 @@ export const useGraphStore = defineStore('GraphStore', () => {
 
 
     function getPercent(departmentName, groupName) {
+        if(_data.value.length === 0){
+            return "0%"
+        }
         let idx = 0;
         _data.value.forEach((item, index) => {
-            if(departmentName === item.departmentName) {
+            if(departmentName === item.department) {
                 idx = index
             }
         });
-        const departmen = _data.value[idx];
-        const total = departmen['very_happy'] + departmen['happy'] + departmen['content'] + departmen['unhappy'] + departmen['very_unhappy']
-        const groupCount = departmen[groupName]
+        // console.log(_data.value)
+        const department = _data.value[idx];
+        const total = department['very_happy'] + department['happy'] + department['content'] + department['unhappy'] + department['very_unhappy']
+        const groupCount = department[groupName]
         const percent = groupCount/total * 100
         // Check if the percentage is a whole number
         if (Number.isInteger(percent)) {
@@ -31,10 +35,7 @@ export const useGraphStore = defineStore('GraphStore', () => {
     }
 
     const compareToWork = computed({
-        get: () => {
-            console.log('compareToWork getter called, value:', _compareToWork.value);
-            return _compareToWork.value;
-        },
+        get: () => _compareToWork.value,
         set: (value) => setCompareToWork(value)
     })
 
