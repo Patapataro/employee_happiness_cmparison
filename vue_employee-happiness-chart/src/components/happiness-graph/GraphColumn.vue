@@ -1,19 +1,25 @@
 <script setup>
+    import { computed } from 'vue'
     import GraphColumn from './GraphColumn.vue'
+    import { useGraphStore } from './../../stores/GraphStore.js'
 
-    defineProps({
-        percent: {
-            type: Number,
-            // required: true
+    const DataStore = useGraphStore();
+
+    const props = defineProps({
+        columnData: {
+            type: Object
         },
-        titleOne: {
-            type: String
-        },
-        title2: {
-            type: String
-        },
-        colors:{
-            type: Array
+        idx: {
+            type: Number
+        }
+    })
+
+    // let barPercent = props.columnData.salesPercent.value ? 1
+
+    const barStyle = computed(() => {
+        return {
+            backgroundImage: `linear-gradient(${props.columnData.colors[0]}, ${props.columnData.colors[1]})`,
+            height: `${props.columnData.salesPercent.value}`
         }
     })
 </script>
@@ -21,12 +27,12 @@
 <template>
     <div class="column">
         <img alt="mood" class="mood" src="../../assets/svg/amazing.svg" width="25" height="25" />
-        <div class="grphTitle"><p class="grphTitleText">{{ titleOne }}</p></div>
-        <div class="header"><p>Very Happy</p></div>
+        <div id="grphTitle"><p class="grphTitleText">{{ props.columnData.title }}</p></div>
+        <div class="header"><p>{{ columnData.secondTitle}}</p></div>
         <div class="graph">
-            <div class="bar"></div>
+            <div :id="`bar-${ idx }`" :style="barStyle"></div>
         </div>
-        <div class="percent"><p>77%</p></div>
+        <div class="percent"><p>{{ columnData.salesPercent.value }}</p></div>
     </div>
 </template>
 
@@ -43,7 +49,7 @@
     /* margin: 0 auto 2rem; */
     }
 
-    .grphTitle{
+    #grphTitle{
         background-image: linear-gradient(#008FCF, #081E3F);
         border-radius: 1em 1em 0em 0em;
         text-align: center;
@@ -71,10 +77,10 @@
         text-align: center;
     }
 
-    .bar {
+    div[id^='bar-'] {
         background-color: #3153b0;
         width: 90%;
-        height: 70%;
+        min-height: 1%;
         align-self: flex-end;
         margin-left: auto;
         margin-right: auto;
@@ -83,6 +89,4 @@
         background-image: linear-gradient(#008FCF, #081E3F);
 
     }
-
-
 </style>
