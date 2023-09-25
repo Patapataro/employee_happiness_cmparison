@@ -1,5 +1,9 @@
 <script setup>
+    import { computed } from 'vue'
     import GraphColumn from './GraphColumn.vue'
+    import { useGraphStore } from './../../stores/GraphStore.js'
+
+    const DataStore = useGraphStore();
 
     defineProps({
         data: {
@@ -7,56 +11,67 @@
             // required: true
         }
     })
-    let titleOnes = ['Amazing', 'Good', 'Okay', 'Risk', 'High Risk']
-    let titleTwos = ['Very Happy', 'happy', 'content', 'Unhappy', 'Very Unhappy']
-    // let dataLen = data.value.length
+
+    // console.log(DataStore.data.value)
+
+    let columnsData = [
+        {
+            title: 'Amazing',
+            secondTitle: 'Very Happy',
+            index: 'very_happy',
+            colors: ['#008FCF', '#081E3F'],
+            salesPercent: computed(() =>  DataStore.getPercent('Sales Team', 'very_happy')),
+            workPercent: computed(() =>  DataStore.getPercent('Workplace', 'very_happy'))
+        },
+        {
+            title: 'Good',
+            secondTitle: 'Happy',
+            index: 'happy',
+            colors: ['#07B2FF', '#00557B'],
+            salesPercent: computed(() =>  DataStore.getPercent('Sales Team', 'happy')),
+            workPercent: computed(() =>  DataStore.getPercent('Workplace', 'happy'))
+        },
+        {
+            title: 'Okay',
+            secondTitle: 'Content',
+            index: 'content',
+            colors: ['#24B5BE', '#265B5F'],
+            salesPercent: computed(() =>  DataStore.getPercent('Sales Team', 'content')),
+            workPercent: computed(() =>  DataStore.getPercent('Workplace', 'content'))
+        },
+        {
+            title: 'Risk',
+            secondTitle: 'Unhappy',
+            index: 'unhappy',
+            colors: ['#BBBBBB', '#4F4F4F'],
+            salesPercent: computed(() =>  DataStore.getPercent('Sales Team', 'unhappy')),
+            workPercent: computed(() =>  DataStore.getPercent('Workplace', 'unhappy'))
+        },
+        {
+            title: 'High Risk',
+            secondTitle: 'Very Unhappy',
+            index: 'very_unhappy',
+            colors: ['#FFA800', '#9A4100'],
+            salesPercent: computed(() =>  DataStore.getPercent('Sales Team', 'very_unhappy')),
+            workPercent: computed(() =>  DataStore.getPercent('Workplace', 'very_unhappy'))
+        }
+    ];
+
 </script>
 
 <template>
 
-    <h1>{{ data }}</h1>
+    <!-- <h1>{{ data }}</h1> -->
     <div id="container">
         <div id="graphPercent">
-            <p>100%</p>
-            <p>75%</p>
-            <p>50%</p>
-            <p>25%</p>
-            <p>0%</p>
+            <p class="percent-label">100%</p>
+            <p class="percent-label">75%</p>
+            <p class="percent-label">50%</p>
+            <p class="percent-label">25%</p>
+            <p class="percent-label">0%</p>
         </div>
         <div id="chartContainer">
-            <!-- <GraphColumn /> -->
-            <!-- <div class="column">
-                <img alt="mood" class="mood" src="../../assets/svg/amazing.svg" width="25" height="25" />
-                <div><p>Goal: 100%</p></div>
-                <div class="header"><p>Very Happy + Happy</p></div>
-                <div class="graph">
-                    <p class="percent-top">77%</p>
-                    <div class="bar"></div>
-                </div>
-                <div class="percent"><p>77%</p></div>
-            </div> -->
-
-
-            <!-- <GraphColumn :titleOne="'Amazing'" /> -->
-            <GraphColumn v-for="key in data" />
-            <GraphColumn />
-            <GraphColumn />
-            <GraphColumn />
-            <GraphColumn />
-            <GraphColumn />
-
-
-            <!-- <div class="column">
-                <img alt="mood" class="mood" src="../../assets/svg/amazing.svg" width="25" height="25" />
-                <div><p>Take Action</p></div>
-                <div class="header"><p>Very Happy + Happy</p></div>
-                <div class="graph">
-                    <p class="percent-top">77%</p>
-                    <div class="bar"></div>
-                </div>
-                <div class="percent"><p>77%</p></div>
-            </div> -->
-
+            <GraphColumn v-for="(columnData, index) in columnsData" :idx="index" :columnData="columnData" />
         </div>
     </div>
 
@@ -69,6 +84,20 @@
         width: 100%;
     }
 
+    #graphPercent {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        margin-top: 4.5em;
+        margin-bottom: 1.3em;
+        margin: 3em .5em 1.3em 0;
+        color: #8B929C;
+        font-weight: 400;
+    }
+    .percent-label{
+        font-size: .8em;
+    }
+
     #chartContainer{
         display:flex;
         border: 1px #8B929C solid;
@@ -78,13 +107,6 @@
         width: 100%;
     }
 
-    #graphPercent {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        margin-top: 4.5em;
-        margin-bottom: 1.3em;
-    }
     .column {
         display: flex;
         flex-flow: column;
