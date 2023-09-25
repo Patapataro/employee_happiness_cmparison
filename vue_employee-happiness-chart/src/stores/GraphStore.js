@@ -1,17 +1,23 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
+import { getAll } from './../services/HappinessChartService.js'
+
 
 export const useGraphStore = defineStore('GraphStore', () => {
-    const data = ref([])
-    const compareToWork = ref(true)
+    const _data = ref([])
+    const _compareToWork = ref(true) 
+    let isLoading = ref(false);
+    const dataLen = computed(()=> _data.value.length)
+
+
     function getPercent(departmentName, groupName) {
         let idx = 0;
-        data.value.forEach((item, index) => {
+        _data.value.forEach((item, index) => {
             if(departmentName === item.departmentName) {
                 idx = index
             }
         });
-        const departmen = data.value[idx];
+        const departmen = _data.value[idx];
         const total = departmen['very_happy'] + departmen['happy'] + departmen['content'] + departmen['unhappy'] + departmen['very_unhappy']
         const groupCount = departmen[groupName]
         const percent = groupCount/total * 100
@@ -24,14 +30,37 @@ export const useGraphStore = defineStore('GraphStore', () => {
         }
     }
 
-    function setData(newData) {
-        data.value = newData;
+    const compareToWork = computed({
+        get: () => {
+            console.log('compareToWork getter called, value:', _compareToWork.value);
+            return _compareToWork.value;
+        },
+        set: (value) => setCompareToWork(value)
+    })
+
+    const data = computed({
+        get: () => _data.value,
+        set: (value) => setData(value)
+    })
+
+    function fetchData() {
+        isLoading.value = true
+        return getAll().then(response => {
+            data.value = response
+        }).finally(() => {
+            isLoading.value = false
+        });
     }
 
-    function setCompareToWork(newCompareToWork) {
-        compareToWork.value = newCompareToWork;
+    function setCompareToWork(value) {
+        _compareToWork.value = value
     }
 
-    return {data, compareToWork, getPercent, setData, setCompareToWork}
+    function setData(value) {
+        _data.value = value
+    }
+
+
+    return {data, compareToWork, dataLen, isLoading, getPercent, fetchData}
 
 });
