@@ -20,7 +20,7 @@ This project is a chart representation of employee happiness, utilizing Vue.js f
 ### 1. Navigate to the Project Directory
 
 ```
-cd  /dir
+cd  /employee_happiness_cmparison
 ```
 
 ### 2. Build and Run the Containers
