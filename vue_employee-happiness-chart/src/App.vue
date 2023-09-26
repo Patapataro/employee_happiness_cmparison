@@ -2,15 +2,44 @@
 import { ref, onMounted, computed } from 'vue'
 // import { getAll } from './services/HappinessChartService.js'
 import HappinessGraph from './components/happiness-graph/HappinessGraph.vue'
+import Notification from './components/NotificationBar.vue';
 import DataRow from './components/DataRow.vue'
 import { useGraphStore } from './stores/GraphStore.js'
 
 const DataStore = useGraphStore();
 
+let showNotification = ref(false)
+let notificationMessage = ref('')
+let notificationType = ref('success')
+
 onMounted(async () => {
     DataStore.fetchData()
   }
 )
+
+function saveData() {
+  DataStore.saveData().then((result)=> {
+    // console.log(result)
+    if(result.status === 'success') {
+        notificationMessage.value = 'Update successful!'
+        notificationType.value = 'success'
+        showNotification.value = true
+
+        setTimeout(() => {
+            showNotification.value = false
+        }, 3000);
+    } 
+  }).catch(error => {
+      console.error(error);
+      notificationMessage.value = 'Update failed!';
+      notificationType.value = 'error';
+      showNotification.value = true;
+
+      setTimeout(() => {
+        showNotification.value = false;
+      }, 3000);
+  });
+}
 
 </script>
 
@@ -21,10 +50,17 @@ onMounted(async () => {
     <!-- <div class="wrapper">
       <HelloWorld msg="You did it!" />
     </div> -->
-    <h1 id="title">Employee Happiness Comparison</h1>
+
+    <Notification
+      v-if="showNotification"
+      :message="notificationMessage"
+      :type="notificationType"
+    />
+
+    <h2 id="title">Employee Happiness Comparison</h2>
     <div id="checkbox">
       <input type="checkbox" v-model="DataStore.compareToWork">
-      <p>Compare to Workplace</p>
+      <p id="compareP">Compare to Workplace</p>
     </div>
     
 
@@ -41,10 +77,10 @@ onMounted(async () => {
     <div v-else-if="DataStore.data">
 
 
-      <h2>{{ DataStore.data }}</h2>
-      <h2>{{ DataStore.compareToWork }}</h2>
+      <!-- <h2>{{ DataStore.data }}</h2>
+      <h2>{{ DataStore.compareToWork }}</h2> -->
 
-      <HappinessGraph :data="DataStore.data"/>
+      <HappinessGraph />
 
       <hr>
       <table id="data-input">
@@ -57,7 +93,7 @@ onMounted(async () => {
         <tr>
           <td colspan="5"></td>
           <td id="save-btn-cell">
-            <button id="save-btn">Save</button>
+            <button id="save-btn" @click="saveData">Save</button>
           </td>
         </tr>
       </table>
@@ -71,15 +107,15 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-
-  header {
-    display: flex;
-    justify-content: column;
+  #title {
+    text-align: center;
   }
 
   #checkbox {
     display: flex;
-    margin-right: 0;
+    float: right;
+    position: relative;
+    bottom: 2.5em;
   }
 
   #title {
@@ -89,6 +125,7 @@ onMounted(async () => {
 
   table {
     table-layout: fixed;
+    width:100%;
   }
 
   hr {
@@ -96,9 +133,6 @@ onMounted(async () => {
     margin: 2em 0em 1em 0em;
   }
 
-  #data-input {
-    width: 100%;
-  }
 
   #save-btn-cell {
     padding-left: 1em;
@@ -113,6 +147,11 @@ onMounted(async () => {
     float: right;
     font-weight: 600;
     width: 100%;
-    /* margin-left: 2em; */
+  }
+
+  @media (max-width: 1024px) {
+    #checkbox {
+      position: static;
+    }
   }
 </style>
