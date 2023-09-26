@@ -5,9 +5,14 @@
 
     let props = defineProps({
         data: {
-            type: Array,
+            type: Object,
+            required: true
         }
     })
+
+    const inputHandler = (key) => {
+        if (props.data[key] === '' || props.data[key] < 0) props.data[key] = 0;
+    }
 </script>
 
 <template>
@@ -18,31 +23,31 @@
         <td>
             <div class="mood-data">
                 <label for="very_happy">Very Happy</label><br>
-                <input id="very_happy" type="number" v-model="data.very_happy">
+                <input id="very_happy" type="number" v-model="data.very_happy" @input="inputHandler('very_happy')" min="0">
             </div>
         </td>
         <td>
             <div class="mood-data">
                 <label for="happy">Happy</label><br>
-                <input id="happy" type="number" v-model="data.happy">
+                <input id="happy" type="number" v-model="data.happy" @input="inputHandler('happy')" min="0">
             </div>
         </td>
         <td>
             <div class="mood-data">
                 <label for="content">Content</label><br>
-                <input id="content" type="number" v-model="data.content">
+                <input id="content" type="number" v-model="data.content" @input="inputHandler('content')" min="0">
             </div>
         </td>
         <td>
             <div class="mood-data">
                 <label for="unhappy">Unhappy</label><br>
-                <input id="unhappy" type="number" v-model="data.unhappy">
+                <input id="unhappy" type="number" v-model="data.unhappy" @input="inputHandler('unhappy')" min="0">
             </div>
         </td>
         <td>
             <div class="mood-data">
                 <label for="very_unhappy">Very Unhappy</label><br>
-                <input id="very_unhappy" type="number" v-model="data.very_unhappy">
+                <input id="very_unhappy" type="number" v-model="data.very_unhappy" @input="inputHandler('very_unhappy')" min="0">
             </div>
         </td>
     </tr>
