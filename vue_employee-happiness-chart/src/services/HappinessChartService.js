@@ -1,37 +1,20 @@
-export async function getAll() {
-    const response = await fetch('http://localhost:8000/get');
-    return await response.json();
+export const HappinessChartService = {
+    "URL": "http://localhost:8000",
 
-    // fetch('/api/get')
-    // .then(response => {
-    //     if (!response.ok) {
-    //     throw new Error('Network response was not ok');
-    //     }
-    //     return response.text();
-    // })
-    // .then(text => {
-    //     // parse response to json
-    //     try {
-    //     return JSON.parse(text);
-    //     } catch (err) {
-    //     console.error('Failed to parse JSON:', text);
-    //     throw err;
-    //     }
-    // })
-    // .then(data => {
-    //     // Handle the parsed data
-    //     return data
-    // })
-    // .catch(error => {
-    //     console.error('Fetch error:', error);
-    // });
-}
+    "getAll": async function() {
+        const response = await fetch(this.URL+'/get');
+        return await response.json();
+    },
 
-export async function edit(data) {
-    const response = await fetch(`/api/edit`, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({user: data})
-      })
-    return await response.json();
+    "edit": async function edit(data) {
+        const response = await fetch(this.URL+'/post', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({graph: data})
+        })
+        return await response.json();
+    }
 }
