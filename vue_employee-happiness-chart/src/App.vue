@@ -70,7 +70,7 @@ function saveData() {
     <!-- <TheWelcome /> -->
 
     <div v-if="DataStore.isLoading">
-      Loading...
+      <p class="no-data">Loading...</p>
     </div>
     
     <!-- <div v-else-if="localData.value.length > 0"> -->
@@ -100,13 +100,18 @@ function saveData() {
     </div>
 
     <div v-else>
-      No data available.
+      <p class="no-data">No data available.</p>
+      
     </div>
 
   </main>
 </template>
 
 <style scoped>
+  .no-data {
+    text-align: center;
+  }
+
   #title {
     text-align: center;
   }
