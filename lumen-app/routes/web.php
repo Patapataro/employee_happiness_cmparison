@@ -15,9 +15,9 @@ use Illuminate\Support\Facades\DB;
 |
 */
 
-// $router->get('/', function () use ($router) {
-//     return $router->app->version();
-// });
+$router->get('/', function () use ($router) {
+    return $router->app->version();
+});
 
 // $router->get('foo', function () {
 //     return 'Hello World';
