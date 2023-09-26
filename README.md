@@ -1,47 +1,18 @@
-<!-- Title  -->
-Employee Happiness Chart
+# Employee Happiness Chart
 
-<!-- header -->
-Prerequisites
+This project is a chart representation of employee happiness, utilizing Vue.js for the front end, Lumen for the API, and MySQL for the database. This README provides steps to set up the project locally.
 
-<!-- List items -->
-Ensure you have Docker and Docker Compose installed on your machine.
-Clone or download the project repository to your local machine.
+## Prerequisites
 
-<!-- Header 2 -->
-1. Navigate to the Project Directory
+- Ensure you have Docker and Docker Compose installed on your machine.
+- Clone or download the project repository to your local machine.
 
-<!-- Path to project -->
-/dir
+## Setup Instructions
 
-<!-- Header 3 -->
-2. Build and Start the Containers
+### 1. Navigate to the Project Directory
 
-Use Docker Compose to build and start the containers:
+```sh
+cd /dir
+```
 
-cmd: 
-```docker-compose up -d```
-
-This command will read the docker-compose.yml file, build the necessary images (if they don't exist locally), and start the containers.
-
-<!-- Header 3 -->
-3. Access the Applications
-
-Vue.js App: Open a web browser and navigate to http://localhost:8080.
-Lumen API: Access the API at http://localhost:8000.
-MySQL Database: You can connect to the MySQL database using any database client with the following credentials:
-    Host: localhost
-    Port: 3306
-    User: user
-    Password: secret
-    Database: employee-happiness-chart
-
-
-<!-- Header -->
-Migrate and seed the lumen database
-```docker-compose exec lumen php artisan migrate --seed```
-
-<!-- Header Conclusion -->
-Conclusion
-
-You should now have the Vue.js, Pinia, and Lumen project running locally on your machine.
+### 2. Build and Run the Containers
