@@ -23,31 +23,31 @@
         <td>
             <div class="mood-data">
                 <label for="very_happy">Very Happy</label><br>
-                <input id="very_happy" type="number" v-model="data.very_happy" @input="inputHandler('very_happy')" min="0">
+                <input id="very_happy" type="number" v-model="data.very_happy" @blur="inputHandler('very_happy')" min="0">
             </div>
         </td>
         <td>
             <div class="mood-data">
                 <label for="happy">Happy</label><br>
-                <input id="happy" type="number" v-model="data.happy" @input="inputHandler('happy')" min="0">
+                <input id="happy" type="number" v-model="data.happy" @blur="inputHandler('happy')" min="0">
             </div>
         </td>
         <td>
             <div class="mood-data">
                 <label for="content">Content</label><br>
-                <input id="content" type="number" v-model="data.content" @input="inputHandler('content')" min="0">
+                <input id="content" type="number" v-model="data.content" @blur="inputHandler('content')" min="0">
             </div>
         </td>
         <td>
             <div class="mood-data">
                 <label for="unhappy">Unhappy</label><br>
-                <input id="unhappy" type="number" v-model="data.unhappy" @input="inputHandler('unhappy')" min="0">
+                <input id="unhappy" type="number" v-model="data.unhappy" @blur="inputHandler('unhappy')" min="0">
             </div>
         </td>
         <td>
             <div class="mood-data">
                 <label for="very_unhappy">Very Unhappy</label><br>
-                <input id="very_unhappy" type="number" v-model="data.very_unhappy" @input="inputHandler('very_unhappy')" min="0">
+                <input id="very_unhappy" type="number" v-model="data.very_unhappy" @blur="inputHandler('very_unhappy')" min="0">
             </div>
         </td>
     </tr>
