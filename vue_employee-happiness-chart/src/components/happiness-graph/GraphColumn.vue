@@ -161,6 +161,7 @@
     /* div[id^='bar-'] { */
     .bar {
         min-height: 1%;
+        max-height: 100%;
         align-self: flex-end;
         margin-left: auto;
         margin-right: auto;

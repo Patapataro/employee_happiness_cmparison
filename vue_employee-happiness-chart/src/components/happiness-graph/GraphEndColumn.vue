@@ -81,7 +81,7 @@
         </div>
         <div class="graph end-graph">
             <!-- <div class="bar-container"> -->
-                <div :id="`bar-${ idx }`" class="bar first-end-bar" :style="barStyle">
+                <div :id="`bar-${ idx }`" class="bar" :style="barStyle">
                     <p class="percent top-bar-percent bold" :style="topBarPercent">{{ columnData.salesPercent.value }}%</p>
                 </div>
                 <div v-if="DataStore.compareToWork" class="bar second-end-bar" :style="secondBarStyle"></div>
@@ -205,8 +205,8 @@
 
     /* div[id^='bar-'] { */
     .bar {
-
         min-height: 1%;
+        max-height: 100%;
         align-self: flex-end;
         margin-left: auto;
         margin-right: auto;
@@ -220,9 +220,6 @@
         bottom: 2em;
     }
 
-    /* .first-end-bar {
-        margin-right: 1em;
-    } */
     .second-end-bar {
         width: 20%;
         background-color: #162438
