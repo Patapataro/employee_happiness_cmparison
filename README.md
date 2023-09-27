@@ -20,7 +20,7 @@ This project is a chart representation of employee happiness, utilizing Vue.js f
 ### 1. Navigate to the Project Directory
 
 ```
-cd  /employee_happiness_cmparison
+cd employee_happiness_cmparison
 ```
 
 ### 2. Build and Run the Containers
@@ -31,9 +31,20 @@ This command will read the docker-compose.yml file, build the necessary images (
 
 This command will read the `docker-compose.yml` file, build the necessary images, and start the containers.
 
+### 3. Connect Lumen to the database
+
+Create a copy of .env.example and rename it .env
+
+- **MySQL Database:** You can connect Lumen to the MySQL database with the following credentials:
+  - Host: localhost
+  - Port: 3306
+  - User: user
+  - Password: secret
+  - Database: employee-happiness-chart
+
 ### 3. Migrate and Seed the Lumen Database
 
-Run the following command to migrate and seed the Lumen database:
+from the root directory run the following command to migrate and seed the Lumen database:
 
 ```
 docker-compose exec lumen php artisan migrate --seed
@@ -43,12 +54,6 @@ docker-compose exec lumen php artisan migrate --seed
 
 - **Vue.js App:** Open a web browser and navigate to [http://localhost:8080](http://localhost:8080).
 - **Lumen API:** Access the API at [http://localhost:8000](http://localhost:8000).
-- **MySQL Database:** You can connect to the MySQL database using any database client with the following credentials:
-  - Host: localhost
-  - Port: 3306
-  - User: user
-  - Password: secret
-  - Database: employee-happiness-chart
 
 ### Conclusion
  Vue and Lumen are running locally on your machine. 
