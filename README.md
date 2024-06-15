@@ -27,8 +27,6 @@ cd employee_happiness_cmparison
 
 ```docker-compose up -d```
 
-This command will read the docker-compose.yml file, build the necessary images (if they don't exist locally), and start the containers.
-
 This command will read the `docker-compose.yml` file, build the necessary images, and start the containers.
 
 ### 3. Connect Lumen to the database
@@ -42,7 +40,7 @@ Create a copy of .env.example and rename it .env
   - Password: secret
   - Database: employee-happiness-chart
 
-### 3. Migrate and Seed the Lumen Database
+### 4. Migrate and Seed the Lumen Database
 
 from the root directory run the following command to migrate and seed the Lumen database:
 
@@ -50,7 +48,7 @@ from the root directory run the following command to migrate and seed the Lumen 
 docker-compose exec lumen php artisan migrate --seed
 ```
 
-###  4. Access the Applications and Test 
+###  5. Access the Applications and Test 
 
 - **Vue.js App:** Open a web browser and navigate to [http://localhost:8080](http://localhost:8080).
 - **Lumen API:** Access the API at [http://localhost:8000](http://localhost:8000).
